@@ -15,7 +15,7 @@ class HouseSeeder extends Seeder
     {
         // dd(\App\Models\Tehsil::count());
         for($i = 1; $i < \App\Models\Tehsil::count(); $i++) {
-            call_user_func([$this, 'generateRow'], rand(1, 10));
+            call_user_func([$this, 'generateRow'], rand(1, 5));
             call_user_func([$this, 'reset'], []);
         }
     }
