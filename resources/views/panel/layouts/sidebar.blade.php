@@ -22,6 +22,17 @@
             </a>
         </li>
         <li class="mb-1">
+            <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#users-collapse" aria-expanded="false">
+            Users
+            </button>
+            <div class="collapse" id="users-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                <li><a href="{{route('user.view')}}" class="link-dark rounded">View Users</a></li>
+                <li><a href="{{route('user.add')}}" class="link-dark rounded">Add Users</a></li>
+            </ul>
+            </div>
+        </li>
+        <li class="mb-1">
             <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#provinces-collapse" aria-expanded="false">
             Provinces
             </button>

@@ -33,7 +33,7 @@ class AuthController extends Controller
         // dd($request);
         if($request->validated()) {
             if(Auth::attempt(['email' => $request->get('email'), 'password' => $request->get('password')])) {
-                $user = $this->repository->get($request->all());
+                $user = $this->repository->getBy('email', $request->get('email'));
                 Auth::login($user);
                 return redirect()->route('admin.dashboard')->with(['success' => true, 'message' => 'User logged in']);
             } else {

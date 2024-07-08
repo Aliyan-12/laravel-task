@@ -3,10 +3,10 @@ namespace App\Repositories;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class UserRepository
+class DistrictRepository
 {
     private $model = null;
-    public function __construct(\App\Models\User $model)
+    public function __construct(\App\Models\District $model)
     {
         $this->model = $model;
     }
