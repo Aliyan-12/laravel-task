@@ -2,5 +2,7 @@
 
 @section('page-title', 'Dashboard')
 @section('content')
-    Dashboard
+<center>
+    <h2 class="mb-5">{{trans('Dashboard')}}</h2>
+</center>
 @endsection

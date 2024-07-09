@@ -6,12 +6,19 @@ use Illuminate\Http\Request;
 
 class TehsilController extends Controller
 {
+    private $repository = null;
+    public function __construct(\App\Repositories\TehsilRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $tehsils = $this->repository->all();
+        return view("panel.tehsils.view", compact("tehsils"));
     }
 
     /**
@@ -19,7 +26,7 @@ class TehsilController extends Controller
      */
     public function create()
     {
-        //
+        return view("panel.tehsils.add");
     }
 
     /**
@@ -27,7 +34,9 @@ class TehsilController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $this->repository->create($request->all());
+        return redirect()->route("tehsils.view")->with('success', 'Tehsil created successfully!');
     }
 
     /**
@@ -43,7 +52,8 @@ class TehsilController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $tehsil = $this->repository->getBy('id', $id);
+        return view("panel.tehsils.edit", compact(('tehsil')));
     }
 
     /**
@@ -51,7 +61,10 @@ class TehsilController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        if($this->repository->update($request->all(), $id)) {
+            return redirect()->route('tehsil.view')->with('success', 'Tehsil updated successfully!');
+        }
+        return redirect()->route('tehsil.view')->with('failure', 'Tehsil not found!');
     }
 
     /**
@@ -59,6 +72,20 @@ class TehsilController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if($this->repository->destroy($id)) {
+            return redirect()->back()->with('success', 'Tehsil deleted successfully!');
+        }
+        return redirect()->back()->with('failure', 'Tehsil not found!');
+    }
+
+    public function load(Request $request)
+    {
+        // dd($request->has('provinceId'));
+        $tehsils = [];
+        if($request->has('districtId')) {
+            $tehsils = $this->repository->getCollectionBy('district_id', $request->get('districtId'));
+        }
+        // dd($tehsils);
+        return $tehsils;
     }
 }

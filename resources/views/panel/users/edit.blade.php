@@ -1,6 +1,6 @@
 @extends('panel.layouts.master')
 
-@section('page-title', 'Users/Edit/{{$user->id}}')
+@section('page-title', 'Users/Edit')
 @section('content')
 <center>
     <h2 class="mb-5">{{sprintf('Edit User: %s', $user->firstName)}}</h2>

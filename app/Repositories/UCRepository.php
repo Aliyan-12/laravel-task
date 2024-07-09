@@ -6,14 +6,16 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class UCRepository
 {
     private $model = null;
-    public function __construct(\App\Models\UnionCouncil $model)
+    private $provinceRepository = null;
+    public function __construct(\App\Models\UnionCouncil $model, \App\Repositories\ProvinceRepository $provinceRepository)
     {
         $this->model = $model;
+        $this->provinceRepository = $provinceRepository;
     }
 
     public function all()
     {
-        return $this->model->all();
+        return $this->model->paginate(10);
     }
     public function create(array $data)
     {
@@ -55,5 +57,17 @@ class UCRepository
         } catch(NotFoundHttpException $e) {
             throw new NotFoundHttpException($e->getMessage());
         }
+    }
+    public function getCollectionBy(string $column, string $value) {
+        try {
+            return $this->model->where($column, $value)->get(['id', 'name'])->toArray();
+        } catch(NotFoundHttpException $e) {
+            throw new NotFoundHttpException($e->getMessage());
+        }
+    }
+
+    public function getProvinceRepository()
+    {
+        return $this->provinceRepository;
     }
 }

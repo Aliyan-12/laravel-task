@@ -13,7 +13,7 @@ class ProvinceRepository
 
     public function all()
     {
-        return $this->model->all();
+        return $this->model->paginate(5);
     }
     public function create(array $data)
     {

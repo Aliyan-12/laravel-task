@@ -7,17 +7,18 @@ use Illuminate\Http\Request;
 class ProvinceController extends Controller
 {
     private $repository = null;
-    public function __construct()
+    public function __construct(\App\Repositories\ProvinceRepository $repository)
     {
-
+        $this->repository = $repository;
     }
-    
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $provinces = $this->repository->all();
+        return view("panel.provinces.view", compact("provinces"));
     }
 
     /**
@@ -25,7 +26,7 @@ class ProvinceController extends Controller
      */
     public function create()
     {
-        //
+        return view("panel.provinces.add");
     }
 
     /**
@@ -33,7 +34,9 @@ class ProvinceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $this->repository->create($request->all());
+        return redirect()->route("province.view")->with('success', 'Province created successfully!');
     }
 
     /**
@@ -49,7 +52,8 @@ class ProvinceController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $province = $this->repository->getBy('id', $id);
+        return view("panel.provinces.edit", compact(('province')));
     }
 
     /**
@@ -57,7 +61,10 @@ class ProvinceController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        if($this->repository->update($request->all(), $id)) {
+            return redirect()->route('province.view')->with('success', 'Province updated successfully!');
+        }
+        return redirect()->route('province.view')->with('failure', 'Province not found!');
     }
 
     /**
@@ -65,6 +72,9 @@ class ProvinceController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if($this->repository->destroy($id)) {
+            return redirect()->back()->with('success', 'Province deleted successfully!');
+        }
+        return redirect()->back()->with('failure', 'Province not found!');
     }
 }

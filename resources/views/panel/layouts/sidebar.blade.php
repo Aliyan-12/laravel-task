@@ -38,8 +38,8 @@
             </button>
             <div class="collapse" id="provinces-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="#" class="link-dark rounded">View Provinces</a></li>
-                <li><a href="#" class="link-dark rounded">Add Provinces</a></li>
+                <li><a href="{{route('province.view')}}" class="link-dark rounded">View Provinces</a></li>
+                <li><a href="{{route('province.add')}}" class="link-dark rounded">Add Provinces</a></li>
             </ul>
             </div>
         </li>
@@ -49,8 +49,8 @@
             </button>
             <div class="collapse" id="divisions-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="#" class="link-dark rounded">View Divisions</a></li>
-                <li><a href="#" class="link-dark rounded">Add Divisions</a></li>
+                <li><a href="{{route('division.view')}}" class="link-dark rounded">View Divisions</a></li>
+                <li><a href="{{route('division.add')}}" class="link-dark rounded">Add Divisions</a></li>
             </ul>
             </div>
         </li>
@@ -60,8 +60,8 @@
             </button>
             <div class="collapse" id="districts-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="#" class="link-dark rounded">View Districts</a></li>
-                <li><a href="#" class="link-dark rounded">Add Districts</a></li>
+                <li><a href="{{route('district.view')}}" class="link-dark rounded">View Districts</a></li>
+                <li><a href="{{route('district.add')}}" class="link-dark rounded">Add Districts</a></li>
             </ul>
             </div>
         </li>
@@ -71,8 +71,8 @@
             </button>
             <div class="collapse" id="tehsils-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="#" class="link-dark rounded">View Tehsils</a></li>
-                <li><a href="#" class="link-dark rounded">Add Tehsils</a></li>
+                <li><a href="{{route('tehsil.view')}}" class="link-dark rounded">View Tehsils</a></li>
+                <li><a href="{{route('tehsil.add')}}" class="link-dark rounded">Add Tehsils</a></li>
             </ul>
             </div>
         </li>
@@ -82,8 +82,8 @@
             </button>
             <div class="collapse" id="union-councils-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="#" class="link-dark rounded">View Union Councils</a></li>
-                <li><a href="#" class="link-dark rounded">Add Union Councils</a></li>
+                <li><a href="{{route('union-council.view')}}" class="link-dark rounded">View Union Councils</a></li>
+                <li><a href="{{route('union-council.add')}}" class="link-dark rounded">Add Union Councils</a></li>
             </ul>
             </div>
         </li>

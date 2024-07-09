@@ -6,9 +6,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class UserRepository
 {
     private $model = null;
-    public function __construct(\App\Models\User $model)
+    private $role = null;
+    public function __construct(\App\Models\User $model, \Spatie\Permission\Models\Role $role)
     {
         $this->model = $model;
+        $this->role = $role;
     }
 
     public function all()
@@ -18,7 +20,9 @@ class UserRepository
     public function create(array $data)
     {
         try {
-            return $this->model->create($data);
+            $user = $this->model->create($data);
+            $user->assignRole($this->getRoleName($data['role']));
+            return $user;
         } catch(\Exception $e) {
             throw new \Exception($e->getMessage());
         }
@@ -28,7 +32,12 @@ class UserRepository
     {
         try {
             if($this->model->where('id', $id)->first()) {
-                $this->model->where('id', $id)->first()->update($data);
+                $user = $this->model->where('id', $id)->first();
+                $user->update($data);
+                foreach($user->getRoleNames() as $role) {
+                    $user->removeRole($role);
+                }
+                $user->assignRole($this->getRoleName($data['role']));
                 return true;
             }
         } catch(NotFoundHttpException $e) {
@@ -54,6 +63,15 @@ class UserRepository
             return $this->model->where($column, $value)->first();
         } catch(NotFoundHttpException $e) {
             throw new NotFoundHttpException($e->getMessage());
+        }
+    }
+
+    private function getRoleName(string $id)
+    {
+        try {
+            return $this->role->where('id', $id)->first()->getAttribute('name');
+        } catch(\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 }

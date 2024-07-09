@@ -13,7 +13,7 @@ class TehsilRepository
 
     public function all()
     {
-        return $this->model->all();
+        return $this->model->paginate(10);
     }
     public function create(array $data)
     {
@@ -52,6 +52,14 @@ class TehsilRepository
     public function getBy(string $column, string $value) {
         try {
             return $this->model->where($column, $value)->first();
+        } catch(NotFoundHttpException $e) {
+            throw new NotFoundHttpException($e->getMessage());
+        }
+    }
+
+    public function getCollectionBy(string $column, string $value) {
+        try {
+            return $this->model->where($column, $value)->get(['id', 'name'])->toArray();
         } catch(NotFoundHttpException $e) {
             throw new NotFoundHttpException($e->getMessage());
         }

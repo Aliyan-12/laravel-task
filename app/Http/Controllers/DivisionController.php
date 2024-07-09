@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class DivisionController extends Controller
 {
     private $repository = null;
-    public function __construct(\App\Repositories\UserRepository $repository)
+    public function __construct(\App\Repositories\DivisionRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -17,8 +17,8 @@ class DivisionController extends Controller
      */
     public function index()
     {
-        $users = $this->repository->all();
-        return view("panel.users.view", compact("users"));
+        $divisions = $this->repository->all();
+        return view("panel.divisions.view", compact("divisions"));
     }
 
     /**
@@ -26,7 +26,7 @@ class DivisionController extends Controller
      */
     public function create()
     {
-        return view("panel.users.add");
+        return view("panel.divisions.add");
     }
 
     /**
@@ -36,7 +36,7 @@ class DivisionController extends Controller
     {
         // dd($request->all());
         $this->repository->create($request->all());
-        return redirect()->route("user.view")->with('success', 'User created successfully!');
+        return redirect()->route("division.view")->with('success', 'Division created successfully!');
     }
 
     /**
@@ -52,8 +52,8 @@ class DivisionController extends Controller
      */
     public function edit(string $id)
     {
-        $user = $this->repository->getBy('id', $id);
-        return view("panel.users.edit", compact(('user')));
+        $division = $this->repository->getBy('id', $id);
+        return view("panel.divisions.edit", compact(('division')));
     }
 
     /**
@@ -62,9 +62,9 @@ class DivisionController extends Controller
     public function update(Request $request, string $id)
     {
         if($this->repository->update($request->all(), $id)) {
-            return redirect()->route('user.view')->with('success', 'User updated successfully!');
+            return redirect()->route('division.view')->with('success', 'Division updated successfully!');
         }
-        return redirect()->route('user.view')->with('failure', 'User not found!');
+        return redirect()->route('division.view')->with('failure', 'Division not found!');
     }
 
     /**
@@ -73,8 +73,19 @@ class DivisionController extends Controller
     public function destroy(string $id)
     {
         if($this->repository->destroy($id)) {
-            return redirect()->back()->with('success', 'User deleted successfully!');
+            return redirect()->back()->with('success', 'Division deleted successfully!');
         }
-        return redirect()->back()->with('failure', 'User not found!');
+        return redirect()->back()->with('failure', 'Division not found!');
+    }
+
+    public function load(Request $request)
+    {
+        // dd($request->has('provinceId'));
+        $divisions = [];
+        if($request->has('provinceId')) {
+            $divisions = $this->repository->getCollectionBy('province_id', $request->get('provinceId'));
+        }
+        // dd($divisions);
+        return $divisions;
     }
 }

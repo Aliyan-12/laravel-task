@@ -46,6 +46,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin|agent'])->group(function
         Route::get('/edit/{id}', [\App\Http\Controllers\DivisionController::class, 'edit'])->name('division.edit');
         Route::post('/update/{id}', [\App\Http\Controllers\DivisionController::class, 'update'])->name('division.update');
         Route::post('/delete/{id}', [\App\Http\Controllers\DivisionController::class, 'destroy'])->name('division.delete');
+        Route::get('/load', [\App\Http\Controllers\DivisionController::class, 'load'])->name('division.load');
     });
 
     // Districts
@@ -56,6 +57,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin|agent'])->group(function
         Route::get('/edit/{id}', [\App\Http\Controllers\DistrictController::class, 'edit'])->name('district.edit');
         Route::post('/update/{id}', [\App\Http\Controllers\DistrictController::class, 'update'])->name('district.update');
         Route::post('/delete/{id}', [\App\Http\Controllers\DistrictController::class, 'destroy'])->name('district.delete');
+        Route::get('/load', [\App\Http\Controllers\DistrictController::class, 'load'])->name('district.load');
     });
 
     // Tehsils
@@ -66,6 +68,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin|agent'])->group(function
         Route::get('/edit/{id}', [\App\Http\Controllers\TehsilController::class, 'edit'])->name('tehsil.edit');
         Route::post('/update/{id}', [\App\Http\Controllers\TehsilController::class, 'update'])->name('tehsil.update');
         Route::post('/delete/{id}', [\App\Http\Controllers\TehsilController::class, 'destroy'])->name('tehsil.delete');
+        Route::get('/load', [\App\Http\Controllers\TehsilController::class, 'load'])->name('tehsil.load');
     });
 
     // UnionCouncils
