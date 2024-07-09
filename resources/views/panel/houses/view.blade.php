@@ -34,11 +34,13 @@
                 <td>{{$house->getUCCode()}}</td>
                 <td>{{$house->description}}</td>
                 <td>
-                    <a href="{{route('house.edit', ['id' => $house->id])}}" class="btn btn-outline-info">Edit</a>
-                    <form action="{{route('house.delete', ['id' => $house->id])}}" method="POST">
-                        @csrf
-                        <button class="btn btn-danger" type="submit">Delete</button>
-                    </form>
+                    @role('admin')
+                        <a href="{{route('house.edit', ['id' => $house->id])}}" class="btn btn-outline-info">Edit</a>
+                        <form action="{{route('house.delete', ['id' => $house->id])}}" method="POST">
+                            @csrf
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    @endrole
                 </td>
             </tr>
         @endforeach

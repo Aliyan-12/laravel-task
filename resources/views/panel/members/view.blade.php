@@ -36,11 +36,13 @@
                 <td>{{$member->cnic}}</td>
                 <td>{{$member->getHouseNumber()}}</td>
                 <td>
-                    <a href="{{route('member.edit', ['id' => $member->id])}}" class="btn btn-outline-info">Edit</a>
-                    <form action="{{route('member.delete', ['id' => $member->id])}}" method="POST">
-                        @csrf
-                        <button class="btn btn-danger" type="submit">Delete</button>
-                    </form>
+                    @role('admin')
+                        <a href="{{route('member.edit', ['id' => $member->id])}}" class="btn btn-outline-info">Edit</a>
+                        <form action="{{route('member.delete', ['id' => $member->id])}}" method="POST">
+                            @csrf
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    @endrole
                 </td>
             </tr>
         @endforeach

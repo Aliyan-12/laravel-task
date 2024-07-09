@@ -34,11 +34,13 @@
                 <td>{{$district->getDivisionName()}}</td>
                 <td>{{$district->description}}</td>
                 <td>
-                    <a href="{{route('district.edit', ['id' => $district->id])}}" class="btn btn-outline-info">Edit</a>
-                    <form action="{{route('district.delete', ['id' => $district->id])}}" method="POST">
-                        @csrf
-                        <button class="btn btn-danger" type="submit">Delete</button>
-                    </form>
+                    @role('admin')
+                        <a href="{{route('district.edit', ['id' => $district->id])}}" class="btn btn-outline-info">Edit</a>
+                        <form action="{{route('district.delete', ['id' => $district->id])}}" method="POST">
+                            @csrf
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    @endrole
                 </td>
             </tr>
         @endforeach

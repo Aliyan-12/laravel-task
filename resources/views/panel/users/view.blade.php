@@ -40,11 +40,13 @@
                     @endif
                 </td>
                 <td>
-                    <a href="{{route('user.edit', ['id' => $user->id])}}" class="btn btn-outline-info">Edit</a>
-                    <form action="{{route('user.delete', ['id' => $user->id])}}" method="POST">
-                        @csrf
-                        <button class="btn btn-danger" type="submit">Delete</button>
-                    </form>
+                    @role('admin')
+                        <a href="{{route('user.edit', ['id' => $user->id])}}" class="btn btn-outline-info">Edit</a>
+                        <form action="{{route('user.delete', ['id' => $user->id])}}" method="POST">
+                            @csrf
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    @endrole
                 </td>
             </tr>
         @endforeach

@@ -36,11 +36,13 @@
                 <td>{{$unionCouncil->getParentName()}}</td>
                 <td>{{$unionCouncil->description}}</td>
                 <td>
-                    <a href="{{route('union-council.edit', ['id' => $unionCouncil->id])}}" class="btn btn-outline-info">Edit</a>
-                    <form action="{{route('union-council.delete', ['id' => $unionCouncil->id])}}" method="POST">
-                        @csrf
-                        <button class="btn btn-danger" type="submit">Delete</button>
-                    </form>
+                    @role('admin')
+                        <a href="{{route('union-council.edit', ['id' => $unionCouncil->id])}}" class="btn btn-outline-info">Edit</a>
+                        <form action="{{route('union-council.delete', ['id' => $unionCouncil->id])}}" method="POST">
+                            @csrf
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    @endrole
                 </td>
             </tr>
         @endforeach
