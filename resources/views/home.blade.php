@@ -1,5 +1,6 @@
 @extends('layouts.master')
 
+@section('page-title', 'Home')
 @section('content')
-    <center><h3>Home Page!</h3></center>
+    <center><h2>Home Page!</h2></center>
 @endsection

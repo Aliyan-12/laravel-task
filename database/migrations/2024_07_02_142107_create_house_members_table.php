@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('cnic')->nullable();
             $table->string('age');
-            $table->string('gender');
             $table->foreignId('house_id')->references('id')->on('houses')->onDelete('cascade');
             $table->timestamps();
         });

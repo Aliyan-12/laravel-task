@@ -7,8 +7,12 @@
     </div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <div class="d-flex">
-        <a class="btn btn-outline-dark me-2" href="{{route('user.login')}}">Login</a>
-        <a class="btn btn-outline-secondary me-2" href="{{route('user.register')}}">Register</a>
+        @auth
+          <a class="btn btn-outline-dark me-2" href="{{route('admin.dashboard')}}">Dashboard</a>
+        @else
+          <a class="btn btn-outline-dark me-2" href="{{route('user.login')}}">Login</a>
+          <a class="btn btn-outline-secondary me-2" href="{{route('user.register')}}">Register</a>
+        @endauth
       </div>
     </div>
 </nav>

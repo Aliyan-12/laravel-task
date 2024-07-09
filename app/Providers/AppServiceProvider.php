@@ -19,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        \Illuminate\Support\Facades\Route::aliasMiddleware('role', \Spatie\Permission\Middleware\RoleMiddleware::class);
+        \Illuminate\Pagination\Paginator::useBootstrapFive();
     }
 }

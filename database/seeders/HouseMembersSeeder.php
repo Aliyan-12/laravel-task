@@ -27,7 +27,6 @@ class HouseMembersSeeder extends Seeder
                 'email' => fake()->unique()->safeEmail(),
                 'cnic' => \Illuminate\Support\Str::numbers('12345819202149'),
                 'age' => rand(rand(1, 5), rand(rand(5, 30), rand(30, 70))),
-                'gender' => shuffle($genders),
                 'house_id' => $this->getRandomHouse()
             ]);
             $childs--;

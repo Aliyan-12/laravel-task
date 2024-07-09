@@ -3,7 +3,16 @@
 
 @section('content')
 <div class="auth-container">
-    <h1>Login</h1>
+    <h2>Login</h2>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <form method="POST" action="{{route('user.login')}}">
         @csrf
         <div class="mb-3">
