@@ -28,7 +28,9 @@
             <div class="collapse" id="users-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                 <li><a href="{{route('user.view')}}" class="link-dark rounded">View Users</a></li>
-                <li><a href="{{route('user.add')}}" class="link-dark rounded">Add Users</a></li>
+                @role('admin')
+                    <li><a href="{{route('user.add')}}" class="link-dark rounded">Add Users</a></li>
+                @endrole
             </ul>
             </div>
         </li>
@@ -39,7 +41,9 @@
             <div class="collapse" id="provinces-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                 <li><a href="{{route('province.view')}}" class="link-dark rounded">View Provinces</a></li>
-                <li><a href="{{route('province.add')}}" class="link-dark rounded">Add Provinces</a></li>
+                @role('admin')
+                    <li><a href="{{route('province.add')}}" class="link-dark rounded">Add Provinces</a></li>
+                @endrole
             </ul>
             </div>
         </li>
@@ -50,7 +54,9 @@
             <div class="collapse" id="divisions-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                 <li><a href="{{route('division.view')}}" class="link-dark rounded">View Divisions</a></li>
-                <li><a href="{{route('division.add')}}" class="link-dark rounded">Add Divisions</a></li>
+                @role('admin')
+                    <li><a href="{{route('division.add')}}" class="link-dark rounded">Add Divisions</a></li>
+                @endrole
             </ul>
             </div>
         </li>
@@ -61,7 +67,9 @@
             <div class="collapse" id="districts-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                 <li><a href="{{route('district.view')}}" class="link-dark rounded">View Districts</a></li>
-                <li><a href="{{route('district.add')}}" class="link-dark rounded">Add Districts</a></li>
+                @role('admin')
+                    <li><a href="{{route('district.add')}}" class="link-dark rounded">Add Districts</a></li>
+                @endrole
             </ul>
             </div>
         </li>
@@ -72,7 +80,9 @@
             <div class="collapse" id="tehsils-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                 <li><a href="{{route('tehsil.view')}}" class="link-dark rounded">View Tehsils</a></li>
-                <li><a href="{{route('tehsil.add')}}" class="link-dark rounded">Add Tehsils</a></li>
+                @role('admin')
+                    <li><a href="{{route('tehsil.add')}}" class="link-dark rounded">Add Tehsils</a></li>
+                @endrole
             </ul>
             </div>
         </li>
@@ -83,7 +93,9 @@
             <div class="collapse" id="union-councils-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                 <li><a href="{{route('union-council.view')}}" class="link-dark rounded">View Union Councils</a></li>
-                <li><a href="{{route('union-council.add')}}" class="link-dark rounded">Add Union Councils</a></li>
+                @role('admin')
+                    <li><a href="{{route('union-council.add')}}" class="link-dark rounded">Add Union Councils</a></li>
+                @endrole
             </ul>
             </div>
         </li>
@@ -94,7 +106,9 @@
             <div class="collapse" id="houses-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                 <li><a href="{{route('house.view')}}" class="link-dark rounded">View Houses</a></li>
-                <li><a href="{{route('house.add')}}" class="link-dark rounded">Add Houses</a></li>
+                @role('admin')
+                    <li><a href="{{route('house.add')}}" class="link-dark rounded">Add Houses</a></li>
+                @endrole
             </ul>
             </div>
         </li>
@@ -105,7 +119,9 @@
             <div class="collapse" id="house-members-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                 <li><a href="{{route('member.view')}}" class="link-dark rounded">View Members</a></li>
-                <li><a href="{{route('member.add')}}" class="link-dark rounded">Add Members</a></li>
+                @role('admin')
+                    <li><a href="{{route('member.add')}}" class="link-dark rounded">Add Members</a></li>
+                @endrole
             </ul>
             </div>
         </li>

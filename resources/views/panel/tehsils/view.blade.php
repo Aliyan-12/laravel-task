@@ -34,11 +34,13 @@
                 <td>{{$tehsil->getDistrictName()}}</td>
                 <td>{{$tehsil->description}}</td>
                 <td>
-                    <a href="{{route('tehsil.edit', ['id' => $tehsil->id])}}" class="btn btn-outline-info">Edit</a>
-                    <form action="{{route('tehsil.delete', ['id' => $tehsil->id])}}" method="POST">
-                        @csrf
-                        <button class="btn btn-danger" type="submit">Delete</button>
-                    </form>
+                    @role('admin')
+                        <a href="{{route('tehsil.edit', ['id' => $tehsil->id])}}" class="btn btn-outline-info">Edit</a>
+                        <form action="{{route('tehsil.delete', ['id' => $tehsil->id])}}" method="POST">
+                            @csrf
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    @endrole
                 </td>
             </tr>
         @endforeach
