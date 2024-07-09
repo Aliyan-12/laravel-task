@@ -35,7 +35,9 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        $this->repository->create($request->all());
+        $data = $request->all();
+        $data['members'] = implode(', ', $data['member_id']);
+        $this->repository->create($data);
         return redirect()->route("user.view")->with('success', 'User created successfully!');
     }
 
@@ -61,7 +63,9 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        if($this->repository->update($request->all(), $id)) {
+        $data = $request->all();
+        $data['members'] = implode(', ', $data['member_id']);
+        if($this->repository->update($data, $id)) {
             return redirect()->route('user.view')->with('success', 'User updated successfully!');
         }
         return redirect()->route('user.view')->with('failure', 'User not found!');

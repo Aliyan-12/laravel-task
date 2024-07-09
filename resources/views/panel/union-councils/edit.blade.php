@@ -18,7 +18,7 @@
     </div>
     <div class="form-group mb-3">
         <label for="province_id">Province</label>
-        <select class="form-control" onchange="checkProvince(this.value); loadDivisions(this.value)" id="province_id" name="province_id">
+        <select class="form-control" onchange="loadDivisions(this.value)" id="province_id" name="province_id">
             <option value="{{null}}">Select Province *</option>
                 @foreach (\App\Models\Province::all() as $province)
                     @if ($province->name == $unionCouncil->province()->value('name'))
@@ -67,7 +67,7 @@
     });
 
     function checkProvince(province) {
-        console.log(province);
+        // console.log(province);
         if (province == '<?php echo $unionCouncil->getParentId() ?>') {
             document.getElementById('division_id').disabled = true;
             document.getElementById('division_id').value = null;
@@ -83,8 +83,8 @@
     }
 
     function loadDivisions(province) {
-        console.log(province);
-        if (province == '<?php echo $unionCouncil->getParentId() ?>') {
+        // console.log(province);
+        if (province == '<?php echo \App\Models\Province::where('is_capital', 1)->first()->getAttribute('id') ?>') {
             document.getElementById('division_id').disabled = true;
             document.getElementById('division_id').value = null;
             document.getElementById('district_id').disabled = true;

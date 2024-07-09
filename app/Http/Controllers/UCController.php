@@ -61,7 +61,14 @@ class UCController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        if($this->repository->update($request->all(), $id)) {
+        // dd($request->all());
+        $data = $request->all();
+        if(isset($data['province_id']) && isset($data['tehsil_id'])) {
+            $data['province_id'] = null;
+        } else {
+            $data['tehsil_id'] = null;
+        }
+        if($this->repository->update($data, $id)) {
             return redirect()->route('union-council.view')->with('success', 'Union Council updated successfully!');
         }
         return redirect()->route('union-councils.view')->with('failure', 'Union Council not found!');
@@ -80,12 +87,12 @@ class UCController extends Controller
 
     public function load(Request $request)
     {
-        // dd($request->has('provinceId'));
-        $divisions = [];
-        if($request->has('provinceId')) {
-            $divisions = $this->repository->getCollectionBy('province_id', $request->get('provinceId'));
+        // dd($request->has('parentId'));
+        $unionCouncils = [];
+        if($request->has('parentId')) {
+            $unionCouncils = $this->repository->getCollection($request->get('parentId'));
         }
-        // dd($divisions);
-        return $divisions;
+        // dd($unionCouncils);
+        return $unionCouncils;
     }
 }

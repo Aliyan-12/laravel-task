@@ -58,9 +58,12 @@ class UCRepository
             throw new NotFoundHttpException($e->getMessage());
         }
     }
-    public function getCollectionBy(string $column, string $value) {
+    public function getCollection(string $value) {
         try {
-            return $this->model->where($column, $value)->get(['id', 'name'])->toArray();
+            if(!empty($this->model->where('province_id', $value)->get()->toArray())) {
+                return $this->model->where('province_id', $value)->get(['id', 'code'])->toArray();
+            }
+            return $this->model->where('tehsil_id', $value)->get(['id', 'code'])->toArray();
         } catch(NotFoundHttpException $e) {
             throw new NotFoundHttpException($e->getMessage());
         }

@@ -1,33 +1,17 @@
 @extends('panel.layouts.master')
 
-@section('page-title', 'Users/Edit')
+@section('page-title', 'Houses/Edit')
 @section('content')
 <center>
-    <h2 class="mb-5">{{sprintf('Edit User: %s', $user->firstName)}}</h2>
+    <h2 class="mb-5">{{sprintf('Edit House: %s', $house->number)}}</h2>
 </center>
 
-<form method="POST" action="{{route('user.update', ['id' => $user->id])}}">
+<form method="POST" action="{{route('house.update', ['id' => $house->id])}}">
     @csrf
-    <div class="input-group mb-3">
-        <span class="input-group-text">First and last name</span>
-        <input required type="text" value="{{$user->firstName}}" name="firstName" aria-label="First name" class="form-control">
-        <input required type="text" value="{{$user->lastName}}" name="lastName" aria-label="Last name" class="form-control">
-    </div>
     <div class="form-group mb-3">
-        <label for="email">Email address</label>
-        <input required type="email" value="{{$user->email}}" class="form-control" id="email" name="email">
+        <label for="name">House Number</label>
+        <input required type="name" value="{{$house->number}}" class="form-control" id="name" name="name">
     </div>
-    @if(\Spatie\Permission\Models\Role::all())
-        <div class="form-group mb-3">
-            <label for="role">Role</label>
-            <select required class="form-control" id="role" name="role">
-                <option value="{{null}}">Select Role *</option>
-                @foreach (\Spatie\Permission\Models\Role::all() as $role)
-                    <option value="{{$role->id}}">{{$role->name}}</option>
-                @endforeach
-            </select>
-        </div>
-    @endif
     <div class="form-group mb-3">
         <label for="province_id">Province</label>
         <select class="form-control" onchange="loadDivisions(this.value)" id="province_id" name="province_id">
@@ -57,26 +41,13 @@
     </div>
     <div class="form-group mb-3">
         <label for="uc_id">Union Councils</label>
-        <select class="form-control" onchange="loadHouses(this.value)" id="uc_id" name="uc_id">
-
+        <select required class="form-control" id="uc_id" name="uc_id">
+            <option value="{{$house->getUCId()}}">{{$house->getUCCode()}}</option>
         </select>
     </div>
     <div class="form-group mb-3">
-        <label for="house_id">Houses</label>
-        <select class="form-control" onchange="loadHouseMembers(this.value)" id="house_id" name="house_id">
-
-        </select>
-    </div>
-    <div class="form-group mb-3">
-        <label for="member_id">House Members</label>
-        <select multiple required class="form-control" id="member_id" name="member_id[]">
-            @if(\App\Models\User::where('id', $user->id)->pluck('members')->all()[0])
-                <?php $memberIds = \App\Models\User::where('id', $user->id)->pluck('members')->all()[0]; ?>
-                @foreach (explode(', ', $memberIds) as $id)
-                    <option selected value="{{\App\Models\HouseMembers::where('id', $id)->pluck('id')->all()[0]}}">{{\App\Models\HouseMembers::where('id', $id)->pluck('name')->all()[0]}}</opt>
-                @endforeach
-            @endif
-        </select>
+        <label for="description">Description</label>
+        <textarea class="form-control" value="{{$house->description}}" id="description" name="description" rows="3"></textarea>
     </div>
     <div class="form-group mb-3">
         <center>
@@ -139,6 +110,7 @@
     }
     
     function loadDistricts(division) {
+        console.log(division);
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -174,6 +146,7 @@
     }
 
     function loadTehsils(district) {
+        console.log(district);
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -209,6 +182,7 @@
     }
 
     function loadUCs(parent) {
+        console.log(parent);
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -238,76 +212,6 @@
             },
             error: function(xhr, status, error) {
                 console.log('Error while getting union councils: ', error);
-            }
-        });
-    }
-
-    function loadHouses(uc) {
-        console.log(uc);
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: '<?php echo route('house.load')?>',
-            type: 'GET',
-            data: {
-                ucId: uc
-            },
-            success: function(response) {
-                // console.log(response);
-                if(response.length > 0) {
-                    var houseSelect = document.getElementById('house_id');
-                    houseSelect.options.length = 0;
-
-                    response.forEach(function(house) {
-                        var option = document.createElement('option');
-                        option.setAttribute('value', house.id);
-                        option.textContent = house.number;
-                        houseSelect.append(option);
-                    });
-                } else {
-                    var option = document.createElement('option');
-                    option.setAttribute('value', null);
-                    option.textContent = 'No house exists!';
-                }
-            },
-            error: function(xhr, status, error) {
-                console.log('Error while getting houses: ', error);
-            }
-        });
-    }
-
-    function loadHouseMembers(house) {
-        console.log(house);
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: '<?php echo route('member.load')?>',
-            type: 'GET',
-            data: {
-                houseId: house
-            },
-            success: function(response) {
-                // console.log(response);
-                if(response.length > 0) {
-                    var memberSelect = document.getElementById('member_id');
-                    memberSelect.options.length = 0;
-
-                    response.forEach(function(member) {
-                        var option = document.createElement('option');
-                        option.setAttribute('value', member.id);
-                        option.textContent = member.name;
-                        memberSelect.append(option);
-                    });
-                } else {
-                    var option = document.createElement('option');
-                    option.setAttribute('value', null);
-                    option.textContent = 'No house exists!';
-                }
-            },
-            error: function(xhr, status, error) {
-                console.log('Error while getting houses: ', error);
             }
         });
     }

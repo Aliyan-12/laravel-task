@@ -6,12 +6,19 @@ use Illuminate\Http\Request;
 
 class HouseController extends Controller
 {
+    private $repository = null;
+    public function __construct(\App\Repositories\HouseRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $houses = $this->repository->all();
+        return view("panel.houses.view", compact("houses"));
     }
 
     /**
@@ -19,7 +26,7 @@ class HouseController extends Controller
      */
     public function create()
     {
-        //
+        return view("panel.houses.add");
     }
 
     /**
@@ -27,7 +34,9 @@ class HouseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $this->repository->create($request->all());
+        return redirect()->route("house.view")->with('success', 'House created successfully!');
     }
 
     /**
@@ -43,7 +52,8 @@ class HouseController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $house = $this->repository->getBy('id', $id);
+        return view("panel.houses.edit", compact(('house')));
     }
 
     /**
@@ -51,7 +61,11 @@ class HouseController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // dd($request->all());
+        if($this->repository->update($request->all(), $id)) {
+            return redirect()->route('house.view')->with('success', 'House updated successfully!');
+        }
+        return redirect()->route('house.view')->with('failure', 'House not found!');
     }
 
     /**
@@ -59,6 +73,20 @@ class HouseController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if($this->repository->destroy($id)) {
+            return redirect()->back()->with('success', 'House deleted successfully!');
+        }
+        return redirect()->back()->with('failure', 'House not found!');
+    }
+
+    public function load(Request $request)
+    {
+        // dd($request->has('ucId'));
+        $houses = [];
+        if($request->has('ucId')) {
+            $houses = $this->repository->getCollectionBy('uc_id', $request->get('ucId'));
+        }
+        // dd($houses);
+        return $houses;
     }
 }

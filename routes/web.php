@@ -79,6 +79,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin|agent'])->group(function
         Route::get('/edit/{id}', [\App\Http\Controllers\UCController::class, 'edit'])->name('union-council.edit');
         Route::post('/update/{id}', [\App\Http\Controllers\UCController::class, 'update'])->name('union-council.update');
         Route::post('/delete/{id}', [\App\Http\Controllers\UCController::class, 'destroy'])->name('union-council.delete');
+        Route::get('/load', [\App\Http\Controllers\UCController::class, 'load'])->name('union-council.load');
     });
 
     // Houses
@@ -89,6 +90,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin|agent'])->group(function
         Route::get('/edit/{id}', [\App\Http\Controllers\HouseController::class, 'edit'])->name('house.edit');
         Route::post('/update/{id}', [\App\Http\Controllers\HouseController::class, 'update'])->name('house.update');
         Route::post('/delete/{id}', [\App\Http\Controllers\HouseController::class, 'destroy'])->name('house.delete');
+        Route::get('/load', [\App\Http\Controllers\HouseController::class, 'load'])->name('house.load');
     });
 
     // Members
@@ -99,5 +101,6 @@ Route::prefix('admin')->middleware(['auth', 'role:admin|agent'])->group(function
         Route::get('/edit/{id}', [\App\Http\Controllers\MemberController::class, 'edit'])->name('member.edit');
         Route::post('/update/{id}', [\App\Http\Controllers\MemberController::class, 'update'])->name('member.update');
         Route::post('/delete/{id}', [\App\Http\Controllers\MemberController::class, 'destroy'])->name('member.delete');
+        Route::get('/load', [\App\Http\Controllers\MemberController::class, 'load'])->name('member.load');
     });
 });

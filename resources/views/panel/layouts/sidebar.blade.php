@@ -93,8 +93,8 @@
             </button>
             <div class="collapse" id="houses-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="#" class="link-dark rounded">View Houses</a></li>
-                <li><a href="#" class="link-dark rounded">Add Houses</a></li>
+                <li><a href="{{route('house.view')}}" class="link-dark rounded">View Houses</a></li>
+                <li><a href="{{route('house.add')}}" class="link-dark rounded">Add Houses</a></li>
             </ul>
             </div>
         </li>
@@ -104,8 +104,8 @@
             </button>
             <div class="collapse" id="house-members-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="#" class="link-dark rounded">View Members</a></li>
-                <li><a href="#" class="link-dark rounded">Add Members</a></li>
+                <li><a href="{{route('member.view')}}" class="link-dark rounded">View Members</a></li>
+                <li><a href="{{route('member.add')}}" class="link-dark rounded">Add Members</a></li>
             </ul>
             </div>
         </li>
